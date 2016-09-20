@@ -1,0 +1,22 @@
+<h1>Animal list!</h1>
+
+#if ($animals)
+  <h3>Incomplete Tasks:</h3>
+  <ul>
+    #foreach ($animal in $animals)
+      #if (!$animal.isCompleted())
+        <li><a href="/animals/$animal.getId()">$animal.getDescription()</a></li>
+      #end
+    #end
+  </ul>
+  <h3>Competed Tasks:</h3>
+  <ul>
+    #foreach ($animal in $animals)
+      #if ($animal.isCompleted())
+        <li><a href="/animals/$animal.getId()">$animal.getDescription()</a></li>
+      #end
+    #end
+  </ul>
+#else
+  <p>No animals!</p>
+#end

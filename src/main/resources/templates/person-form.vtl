@@ -1,0 +1,12 @@
+<h1>Add a animal to $person.getName()</h1>
+
+<form action="/animals" method="post">
+  <input id="personId" name="personId" type="hidden" value="$person.getId()">
+
+  <div class="form-group">
+    <label for="description">Description</label>
+    <input id="description" name="description" type="text" class="form-control">
+  </div>
+
+  <button type="submit" class="btn btn-success">Add Animal</button>
+</form>
