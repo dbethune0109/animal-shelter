@@ -8,7 +8,7 @@ public class AnimalTest {
 
   @Before
   public void setUp() {
-    DB.sql2o = new Sql2o("jdbc:postgresql://localhost:5432/animal_test", null, null);
+    DB.sql2o = new Sql2o("jdbc:postgresql://localhost:5432/animal_test", postgres, fuku1233);
   }
 
   @After
