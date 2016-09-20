@@ -49,4 +49,53 @@ public class Animal {
     return personid;
   }
 
+  public static List<Animal> all() {
+    String sql = "SELECT id, name, gender, dta, breed, type, personid FROM animal";
+    try(Connection con = DB.sql2o.open()) {
+     return con.createQuery(sql).executeAndFetch(Animal.class);
+    }
+  }
+
+  @Override
+  public boolean equals(Object otherAnimal){
+    if (!(otherAnimal instanceof Animal)) {
+      return false;
+    } else {
+      Animal newAnimal = (Animal) otherAnimal;
+      return this.getName().equals(newAnimal.getName()) &&
+             this.getId() == newAnimal.getId() &&
+             this.getPersonid() == newAnimal.getPersonid() &&
+             this.getGender().equals(newAnimal.getGender()) &&
+             this.getDta().equals(newAnimal.getDta()) &&
+             this.getBreed().equals(newAnimal.getBreed()) &&
+             this.getType().equals(newAnimal.getType());
+    }
+  }
+
+  public void save() {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "INSERT INTO animal(name, gender, dta, type, breed, personid) VALUES (:name, :gender, :dta, :type, :breed, :personid)";
+      this.id = (int) con.createQuery(sql, true)
+        .addParameter("name", this.name)
+        .addParameter("personid", this.personid)
+        .addParameter("gender", this.gender)
+        .addParameter("dta", this.dta)
+        .addParameter("type", this.type)
+        .addParameter("breed", this.breed)
+        .addParameter("personid", this.personid)
+        .executeUpdate()
+        .getKey();
+    }
+  }
+
+  public static Animal find(int id) {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "SELECT * FROM animal where id=:id";
+      Animal found = con.createQuery(sql)
+        .addParameter("id", id)
+        .executeAndFetchFirst(Animal.class);
+      return found;
+    }
+  }
+
 }
