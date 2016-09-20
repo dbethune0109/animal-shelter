@@ -1,0 +1,9 @@
+
+
+#foreach ($animal in $animals)
+  #if (($animal.getBreed() == $person.getBreedType() || $animal.getType() == $person.getAnimalType()))
+    <form action="/persons/$person.getId()/find" method="post">
+      <button type="submit" name="find" class="btn btn-success" value="$animal.getId()">$animal.getName()</button>
+    </form>
+  #end
+#end

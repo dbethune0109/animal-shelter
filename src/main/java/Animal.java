@@ -56,6 +56,16 @@ public class Animal {
     }
   }
 
+  public void change(int newID) {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "UPDATE animal set personid = :newID WHERE personid = :oldID";
+      con.createQuery(sql, true)
+        .addParameter("newID", newID)
+        .addParameter("oldID", this.personid)
+        .executeUpdate();
+    }
+  }
+
   @Override
   public boolean equals(Object otherAnimal){
     if (!(otherAnimal instanceof Animal)) {
