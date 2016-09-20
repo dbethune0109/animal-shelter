@@ -63,4 +63,62 @@ public class AnimalTest {
     assertEquals("9/20/2016", myAnimal.getDta());
   }
 
+    @Test
+    public void all_returnsAllInstancesOfAnimal_true() {
+      Animal firstAnimal = new Animal("Adam","Male", "9/20/2016", "Human", "test", -1);
+      firstAnimal.save();
+      Animal secondAnimal = new Animal("bob","Male", "9/24/2016", "one", "three", -1);
+      secondAnimal.save();
+      assertEquals(true, Animal.all().get(0).equals(firstAnimal));
+      assertEquals(true, Animal.all().get(1).equals(secondAnimal));
+    }
+
+    @Test
+    public void getId_AnimalInstantiateWithAnID_1() {
+      Animal firstAnimal = new Animal("Adam","Male", "9/20/2016", "Human", "test", -1);
+      firstAnimal.save();
+      assertTrue(firstAnimal.getId() > 0);
+    }
+
+    @Test
+    public void find_returnsPatientsWithSameId_secondPatients() {
+      Animal firstAnimal = new Animal("Adam","Male", "9/20/2016", "Human", "test", -1);
+      firstAnimal.save();
+      Animal secondAnimal = new Animal("bob","Male", "9/24/2016", "one", "three", -1);
+      secondAnimal.save();
+      assertEquals(Animal.find(secondAnimal.getId()), secondAnimal);
+    }
+
+    @Test
+    public void equals_returnsTrueIfDescriptionsAretheSame() {
+      Animal firstAnimal = new Animal("Adam","Male", "9/20/2016", "Human", "test", -1);
+      Animal secondAnimal = new Animal("Adam","Male", "9/20/2016", "Human", "test", -1);
+      assertTrue(firstAnimal.equals(secondAnimal));
+    }
+
+    @Test
+    public void save_returnsTrueIfDescriptionsAretheSame() {
+      Animal firstAnimal = new Animal("Adam","Male", "9/20/2016", "Human", "test", -1);
+      firstAnimal.save();
+      assertTrue(Animal.all().get(0).equals(firstAnimal));
+    }
+
+    @Test
+    public void save_assignsIdToObject() {
+      Animal firstAnimal = new Animal("Adam","Male", "9/20/2016", "Human", "test", -1);
+      firstAnimal.save();
+      Animal savedAnimal = Animal.all().get(0);
+      assertEquals(firstAnimal.getId(), savedAnimal.getId());
+    }
+
+    // @Test
+    // public void save_savesCategoryIdIntoDB_true() {
+    //   Category myCategory = new Category("Household chores");
+    //   myCategory.save();
+    //   Patients myPatients = new Patients("Mow the lawn", myCategory.getId());
+    //   myPatients.save();
+    //   Patients savedPatients = Patients.find(myPatients.getId());
+    //   assertEquals(savedPatients.getCategoryId(), myCategory.getId());
+    // }
+
 }
